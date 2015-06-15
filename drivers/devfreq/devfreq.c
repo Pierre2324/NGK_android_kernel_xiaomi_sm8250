@@ -1392,6 +1392,27 @@ static ssize_t trans_stat_show(struct device *dev,
 }
 static DEVICE_ATTR_RO(trans_stat);
 
+static ssize_t time_in_state_show(struct device *dev, struct device_attribute *attr,
+                                char *buf)
+{
+	struct devfreq *devfreq = to_devfreq(dev);
+
+        ssize_t len = 0;
+        int i, err;
+		unsigned int max_state = devfreq->profile->max_state;
+
+        err = devfreq_update_status(devfreq, devfreq->previous_freq);
+        if (err)
+                return 0;
+
+		for (i = 0; i < max_state; i++) {
+                len += sprintf(buf + len, "%u %u\n", devfreq->profile->freq_table[i],
+                        jiffies_to_msecs(devfreq->time_in_state[i]));
+        }
+        return len;
+}
+static DEVICE_ATTR_RO(time_in_state);
+
 static struct attribute *devfreq_attrs[] = {
 	&dev_attr_name.attr,
 	&dev_attr_governor.attr,
@@ -1403,6 +1424,7 @@ static struct attribute *devfreq_attrs[] = {
 	&dev_attr_min_freq.attr,
 	&dev_attr_max_freq.attr,
 	&dev_attr_trans_stat.attr,
+	&dev_attr_time_in_state.attr,
 	NULL,
 };
 ATTRIBUTE_GROUPS(devfreq);
