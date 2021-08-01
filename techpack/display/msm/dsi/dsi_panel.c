@@ -5135,6 +5135,9 @@ int dsi_panel_enable(struct dsi_panel *panel)
 		return -EINVAL;
 	}
 
+	if (panel->hbm_mode)
+		dsi_panel_apply_hbm_mode(panel);
+
 	mutex_lock(&panel->panel_lock);
 
 	mi_cfg = &panel->mi_cfg;
@@ -5193,6 +5196,7 @@ int dsi_panel_enable(struct dsi_panel *panel)
 	mutex_unlock(&panel->panel_lock);
 	display_utc_time_marker("DSI_CMD_SET_ON");
 
+
 	return rc;
 }
 
@@ -5206,6 +5210,7 @@ int dsi_panel_post_enable(struct dsi_panel *panel)
 	}
 
 	mutex_lock(&panel->panel_lock);
+
 
 	rc = dsi_panel_tx_cmd_set(panel, DSI_CMD_SET_POST_ON);
 	if (rc) {
@@ -5458,5 +5463,28 @@ int dsi_panel_post_unprepare(struct dsi_panel *panel)
 	}
 error:
 	mutex_unlock(&panel->panel_lock);
+	return rc;
+}
+
+int dsi_panel_apply_hbm_mode(struct dsi_panel *panel)
+{
+	static const enum dsi_cmd_set_type type_map[] = {
+		DSI_CMD_SET_MI_HBM_OFF,
+		DSI_CMD_SET_MI_HBM_ON
+	};
+
+	enum dsi_cmd_set_type type;
+	int rc;
+
+	if (panel->hbm_mode >= 0 &&
+		panel->hbm_mode < ARRAY_SIZE(type_map))
+		type = type_map[panel->hbm_mode];
+	else
+		type = DSI_CMD_SET_MI_HBM_OFF;
+
+	mutex_lock(&panel->panel_lock);
+	rc = dsi_panel_tx_cmd_set(panel, type);
+	mutex_unlock(&panel->panel_lock);
+
 	return rc;
 }
