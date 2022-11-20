@@ -623,13 +623,13 @@ static int __init map_entry_trampoline(void)
 	/* Map only the text into the trampoline page table */
 	memset(tramp_pg_dir, 0, PGD_SIZE);
 	__create_pgd_mapping(tramp_pg_dir, pa_start, TRAMP_VALIAS,
-			     entry_tramp_text_size(), prot, pgd_pgtable_alloc,
-			     0);
+				entry_tramp_text_size(), prot, pgd_pgtable_alloc,
+				0);
 
 	/* Map both the text and data into the kernel page table */
 	for (i = 0; i < DIV_ROUND_UP(entry_tramp_text_size(), PAGE_SIZE); i++)
 		__set_fixmap(FIX_ENTRY_TRAMP_TEXT1 - i,
-			     pa_start + i * PAGE_SIZE, prot);
+				pa_start + i * PAGE_SIZE, prot);
 
 	if (IS_ENABLED(CONFIG_RANDOMIZE_BASE)) {
 		extern char __entry_tramp_data_start[];
