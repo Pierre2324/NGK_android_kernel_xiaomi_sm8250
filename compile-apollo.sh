@@ -1,12 +1,16 @@
 #!/bin/sh
 
 # Some general variables
+PHONE="apollo"
 ARCH="arm64"
 SUBARCH="arm64"
-DEFCONFIG=nogravity-apollo_defconfig
+DEFCONFIG=nogravity-${PHONE}_defconfig
 COMPILER=clang
 LINKER="lld"
 COMPILERDIR="/media/pierre/Expension/Android/PocoX3Pro/Kernels/Proton-Clang"
+
+# Copy gpu dtsi
+cp arch/arm64/boot/dts/vendor/qcom/kona-v2-gpu-xxxx/kona-v2-gpu-${PHONE}.dtsi arch/arm64/boot/dts/vendor/qcom/kona-v2-gpu.dtsi
 
 # Export shits
 export KBUILD_BUILD_USER=Pierre2324
