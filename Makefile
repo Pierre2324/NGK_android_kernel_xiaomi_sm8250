@@ -439,7 +439,7 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -pipe \
 		   -fno-strict-aliasing -fno-common -fshort-wchar \
 		   -Werror-implicit-function-declaration \
 		   -Werror=return-type -Wno-format-security \
-		   -std=gnu89 -Wno-unknown-attributes
+		   -std=gnu89 -Wno-unknown-attributes -Wno-misleading-indentation
 
 # Optimize Clang build for sm8250
 KBUILD_CFLAGS	+= -mcpu=cortex-a77 -mtune=cortex-a77
