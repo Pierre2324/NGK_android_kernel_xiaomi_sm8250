@@ -4,7 +4,7 @@
 PHONE="alioth"
 ARCH="arm64"
 SUBARCH="arm64"
-DEFCONFIG=nogravity-alioth_defconfig
+DEFCONFIG=nogravity-${PHONE}_defconfig
 COMPILER=clang
 LINKER="lld"
 COMPILERDIR="/media/pierre/Expension/Android/PocoX3Pro/Kernels/Proton-Clang"
