@@ -149,10 +149,10 @@ scripts/update_defconfig
 out
 
 # FTS firmwares
-drivers/input/touchscreen/focaltech_3658u/include/firmware/*.i
-drivers/input/touchscreen/focaltech_3658u/include/firmware/*.i
-drivers/input/touchscreen/focaltech_spi/include/firmware/*.i
-drivers/input/touchscreen/focaltech_spi/include/firmware/*.i
-drivers/input/touchscreen/focaltech_touch/include/firmware/*.i
-drivers/input/touchscreen/focaltech_touch/include/firmware/*.i
-drivers/input/touchscreen/focaltech_touch/include/pramboot/*.i
+drivers/input/touchscreen/focaltech_3658u/include/firmware
+drivers/input/touchscreen/focaltech_3658u/include/firmware
+drivers/input/touchscreen/focaltech_spi/include/firmware
+drivers/input/touchscreen/focaltech_spi/include/firmware
+drivers/input/touchscreen/focaltech_touch/include/firmware
+drivers/input/touchscreen/focaltech_touch/include/firmware
+drivers/input/touchscreen/focaltech_touch/include/pramboot
