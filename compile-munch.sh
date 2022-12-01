@@ -21,6 +21,9 @@ cp touch_fw/* drivers/input/touchscreen/focaltech_touch/include/pramboot/
 #AOSP Panel dimensions
 cp arch/arm64/boot/dts/vendor/qcom/panel-dimensions/dsi-panel-l11r-38-08-0a-dsc-cmd.dtsi arch/arm64/boot/dts/vendor/qcom/dsi-panel-l11r-38-08-0a-dsc-cmd.dtsi 
 
+# Cleanup output
+rm -rf out/outputs/${PHONE}/*
+
 # Export shits
 export KBUILD_BUILD_USER=Pierre2324
 export KBUILD_BUILD_HOST=G7-7588

@@ -8,6 +8,9 @@ yellow='\033[0;33m'
 red='\033[0;31m'
 nocol='\033[0m'
 
+# Cleanup
+rm -rf out/outputs/*
+
 ./compile-alioth.sh
 ./compile-apollo.sh
 ./compile-lmi.sh
