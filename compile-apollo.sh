@@ -12,6 +12,15 @@ COMPILERDIR="/media/pierre/Expension/Android/PocoX3Pro/Kernels/Proton-Clang"
 # Copy gpu dtsi
 cp arch/arm64/boot/dts/vendor/qcom/kona-v2-gpu-xxxx/kona-v2-gpu-${PHONE}.dtsi arch/arm64/boot/dts/vendor/qcom/kona-v2-gpu.dtsi
 
+# Copy touch fw
+cp touch_fw/* drivers/input/touchscreen/focaltech_3658u/include/firmware/
+cp touch_fw/* drivers/input/touchscreen/focaltech_spi/include/firmware/
+cp touch_fw/* drivers/input/touchscreen/focaltech_touch/include/firmware/
+cp touch_fw/* drivers/input/touchscreen/focaltech_touch/include/pramboot/
+
+#AOSP Panel dimensions
+cp arch/arm64/boot/dts/vendor/qcom/panel-dimensions/dsi-panel-l11r-38-08-0a-dsc-cmd.dtsi arch/arm64/boot/dts/vendor/qcom/dsi-panel-l11r-38-08-0a-dsc-cmd.dtsi 
+
 # Export shits
 export KBUILD_BUILD_USER=Pierre2324
 export KBUILD_BUILD_HOST=G7-7588
@@ -75,14 +84,30 @@ if [ -z ${LINKER} ]
 then
     Build
 else
-    Build_lld
+    echo | Build_lld
 fi
 
 if [ $? -ne 0 ]
 then
     echo "Build failed"
+    rm -rf out/outputs/${PHONE}/*
+    rm out/outputs/dtbo-miui.img
 else
     echo "Build succesful"
+    mkdir out/outputs
+    mkdir out/outputs/${PHONE}
+    cp out/arch/arm64/boot/dts/vendor/qcom/kona-v2.1.dtb out/outputs/${PHONE}/dtb
+    cp out/arch/arm64/boot/dtbo.img out/outputs/${PHONE}/dtbo.img
+    cp out/arch/arm64/boot/Image.gz out/outputs/${PHONE}/Image.gz
+    #MIUI dtbo
+    cp arch/arm64/boot/dts/vendor/qcom/panel-dimensions/dsi-panel-l11r-38-08-0a-dsc-cmd-miui.dtsi arch/arm64/boot/dts/vendor/qcom/dsi-panel-l11r-38-08-0a-dsc-cmd.dtsi 
+    echo | Build_lld
+    if [ $? -ne 0 ]
+    then
+        rm out/outputs/dtbo-miui.img
+    else
+        cp out/arch/arm64/boot/dtbo.img out/outputs/dtbo-miui.img
+    fi
 fi
 
 BUILD_END=$(date +"%s")

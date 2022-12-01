@@ -22,7 +22,6 @@
 *.elf
 *.gcno
 *.gz
-*.i
 *.ko
 *.lex.c
 *.ll
@@ -152,10 +151,7 @@ out
 arch/arm64/boot/dts/vendor/qcom/kona-v2-gpu.dtsi
 
 # FTS firmwares
-drivers/input/touchscreen/focaltech_3658u/include/firmware/*
-drivers/input/touchscreen/focaltech_3658u/include/firmware/*
-drivers/input/touchscreen/focaltech_spi/include/firmware/*
-drivers/input/touchscreen/focaltech_spi/include/firmware/*
-drivers/input/touchscreen/focaltech_touch/include/firmware/*
-drivers/input/touchscreen/focaltech_touch/include/firmware/*
-drivers/input/touchscreen/focaltech_touch/include/pramboot/*
+drivers/input/touchscreen/focaltech_3658u/include/firmware
+drivers/input/touchscreen/focaltech_spi/include/firmware
+drivers/input/touchscreen/focaltech_touch/include/firmware
+drivers/input/touchscreen/focaltech_touch/include/pramboot
