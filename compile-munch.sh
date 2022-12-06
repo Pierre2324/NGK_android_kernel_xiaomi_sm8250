@@ -18,9 +18,6 @@ cp touch_fw/* drivers/input/touchscreen/focaltech_spi/include/firmware/
 cp touch_fw/* drivers/input/touchscreen/focaltech_touch/include/firmware/
 cp touch_fw/* drivers/input/touchscreen/focaltech_touch/include/pramboot/
 
-#AOSP Panel dimensions
-cp arch/arm64/boot/dts/vendor/qcom/panel-dimensions/dsi-panel-l11r-38-08-0a-dsc-cmd.dtsi arch/arm64/boot/dts/vendor/qcom/dsi-panel-l11r-38-08-0a-dsc-cmd.dtsi 
-
 # Cleanup output
 rm -rf out/outputs/${PHONE}/*
 
@@ -98,7 +95,8 @@ else
     echo "Build succesful"
     mkdir out/outputs
     mkdir out/outputs/${PHONE}
-    cp out/arch/arm64/boot/dts/vendor/qcom/kona-v2.1.dtb out/outputs/${PHONE}/dtb
+    #cp out/arch/arm64/boot/dts/vendor/qcom/kona-v2.1.dtb out/outputs/${PHONE}/dtb
+    find out/arch/arm64/boot/dts/vendor/qcom/ -name '*.dtb' -exec cat {} + >out/outputs/${PHONE}/dtb
     cp out/arch/arm64/boot/dtbo.img out/outputs/${PHONE}/dtbo.img
     cp out/arch/arm64/boot/Image.gz out/outputs/${PHONE}/Image.gz
 fi
