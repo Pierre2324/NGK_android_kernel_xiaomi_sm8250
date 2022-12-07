@@ -13,6 +13,10 @@ COMPILERDIR="/media/pierre/Expension/Android/PocoX3Pro/Kernels/Proton-Clang"
 cp arch/arm64/boot/dts/vendor/qcom/kona-v2-gpu-xxxx/kona-v2-gpu-${PHONE}.dtsi arch/arm64/boot/dts/vendor/qcom/kona-v2-gpu.dtsi
 
 # Copy touch fw
+mkdir drivers/input/touchscreen/focaltech_3658u/include/firmware/
+mkdir drivers/input/touchscreen/focaltech_spi/include/firmware/
+mkdir drivers/input/touchscreen/focaltech_touch/include/firmware/
+mkdir drivers/input/touchscreen/focaltech_touch/include/pramboot/
 cp touch_fw/* drivers/input/touchscreen/focaltech_3658u/include/firmware/
 cp touch_fw/* drivers/input/touchscreen/focaltech_spi/include/firmware/
 cp touch_fw/* drivers/input/touchscreen/focaltech_touch/include/firmware/
