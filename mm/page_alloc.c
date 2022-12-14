@@ -69,6 +69,7 @@
 #include <linux/nmi.h>
 #include <linux/khugepaged.h>
 #include <linux/psi.h>
+#include <linux/devfreq_boost.h>
 
 #if IS_ENABLED(CONFIG_TASK_DELAY_ACCT)
 #include <linux/delayacct.h>
@@ -4603,7 +4604,7 @@ retry:
 		wake_all_kswapds(order, gfp_mask, ac);
 
 	/* Boost when memory is low so allocation latency doesn't get too bad */
-	devfreq_boost_kick_max(DEVFREQ_CPU_LLCC_DDR_BW, 100);
+	devfreq_boost_kick_max(DEVFREQ_MSM_LLCCBW_DDR, 100);
 
 	reserve_flags = __gfp_pfmemalloc_flags(gfp_mask);
 	if (reserve_flags)
