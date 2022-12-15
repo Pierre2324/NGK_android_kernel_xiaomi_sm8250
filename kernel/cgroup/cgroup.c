@@ -57,6 +57,8 @@
 #include <linux/sched/cputime.h>
 #include <linux/psi.h>
 #include <net/sock.h>
+#include <linux/devfreq_boost.h>
+#include <linux/cpu_input_boost.h>
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/cgroup.h>
