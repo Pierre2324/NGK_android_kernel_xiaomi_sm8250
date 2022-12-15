@@ -98,11 +98,11 @@ static unsigned int get_input_boost_freq(struct cpufreq_policy *policy)
 	unsigned int freq;
 
 	if (cpumask_test_cpu(policy->cpu, cpu_lp_mask))
-		freq = input_boost_freq_lp;
+		freq = max(input_boost_freq_lp, remove_input_boost_freq_lp);
 	else if (cpumask_test_cpu(policy->cpu, cpu_perf_mask))
-		freq = input_boost_freq_hp;
+		freq = max(input_boost_freq_hp, remove_input_boost_freq_perf);
 	else
-		freq = input_boost_freq_pp;
+		freq = max(input_boost_freq_pp, remove_input_boost_freq_pp);
 	return min(freq, policy->max);
 }
 
@@ -111,11 +111,11 @@ static unsigned int get_max_boost_freq(struct cpufreq_policy *policy)
 	unsigned int freq;
 
 	if (cpumask_test_cpu(policy->cpu, cpu_lp_mask))
-		freq = max_boost_freq_lp;
+		freq = max(max_boost_freq_lp, remove_input_boost_freq_lp);
 	else if (cpumask_test_cpu(policy->cpu, cpu_perf_mask))
-		freq = max_boost_freq_hp;
+		freq = max(max_boost_freq_hp, remove_input_boost_freq_perf);
 	else
-		freq = max_boost_freq_pp;
+		freq = max(max_boost_freq_pp, remove_input_boost_freq_pp);
 	return min(freq, policy->max);
 }
 
