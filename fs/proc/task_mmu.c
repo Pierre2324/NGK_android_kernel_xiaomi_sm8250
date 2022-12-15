@@ -21,6 +21,7 @@
 #include <linux/pkeys.h>
 #include <linux/mm_inline.h>
 #include <linux/devfreq_boost.h>
+#include <linux/cpu_input_boost.h>
 
 #include <asm/elf.h>
 #include <asm/tlb.h>
@@ -227,6 +228,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
 				       cpu_prime_mask);
 
 	devfreq_boost_kick_max(DEVFREQ_MSM_LLCCBW_DDR, 100);
+	cpu_input_boost_kick();
 
 	hold_task_mempolicy(priv);
 	priv->tail_vma = get_gate_vma(mm);
