@@ -59,6 +59,7 @@
 #include <net/sock.h>
 #include <linux/devfreq_boost.h>
 #include <linux/cpu_input_boost.h>
+#include <linux/binfmts.h>
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/cgroup.h>
@@ -4774,7 +4775,7 @@ static ssize_t cgroup_procs_write(struct kernfs_open_file *of,
 	ret = cgroup_attach_task(dst_cgrp, task, true);
 
 	/* This covers boosting for app launches and app transitions */
-        if (!ret && !threadgroup &&
+        if (!ret &&
                !memcmp(of->kn->parent->name, "top-app", sizeof("top-app")) &&
                task_is_zygote(task->parent)) {
 	       devfreq_boost_kick_max(DEVFREQ_MSM_LLCCBW_DDR, 1000);
