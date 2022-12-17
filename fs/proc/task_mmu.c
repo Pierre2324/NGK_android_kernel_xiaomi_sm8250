@@ -22,11 +22,15 @@
 #include <linux/mm_inline.h>
 #include <linux/devfreq_boost.h>
 #include <linux/cpu_input_boost.h>
+#include <linux/moduleparam.h>
 
 #include <asm/elf.h>
 #include <asm/tlb.h>
 #include <asm/tlbflush.h>
 #include "internal.h"
+
+static bool pid_prime __read_mostly = false;
+module_param(pid_prime, bool, 0644);
 
 #define SEQ_PUT_DEC(str, val) \
 		seq_put_decimal_ull_width(m, str, (val) << (PAGE_SHIFT-10), 8)
@@ -224,8 +228,9 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
 		return ERR_PTR(-EINTR);
 	}
 
-	sched_migrate_to_cpumask_start(to_cpumask(&priv->old_cpus_allowed),
-				       cpu_prime_mask);
+	if(pid_prime)
+		sched_migrate_to_cpumask_start(to_cpumask(&priv->old_cpus_allowed),
+				       	cpu_prime_mask);
 
 	devfreq_boost_kick_max(DEVFREQ_MSM_LLCCBW_DDR, 100);
 	cpu_input_boost_kick();
