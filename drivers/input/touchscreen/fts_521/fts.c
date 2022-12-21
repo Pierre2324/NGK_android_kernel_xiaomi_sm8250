@@ -148,7 +148,9 @@ static int fts_mode_handler(struct fts_ts_info *info, int force);
 static int fts_set_cur_value(int mode, int value);
 #endif
 extern int power_supply_is_system_supplied(void);
+#ifdef CPU_BOOST
 extern void touch_irq_boost(void);
+#endif
 #define EVENT_INPUT 0x1
 extern void lpm_disable_for_dev(bool on, char event_dev);
 
@@ -4632,7 +4634,9 @@ static irqreturn_t fts_event_handler(int irq, void *ts_info)
 	static char pre_id[3];
 	event_dispatch_handler_t event_handler;
 
+#ifdef CPU_BOOST
 	touch_irq_boost();
+#endif
 	if (info->tp_pm_suspend) {
 		MI_TOUCH_LOGI(1, "%s %s: device in suspend, schedue to work", tag, __func__);
 		pm_wakeup_event(info->dev, 0);
