@@ -2304,10 +2304,10 @@ int kgsl_pwrctrl_init(struct kgsl_device *device)
 
 	/* Initialize the user and thermal clock constraints */
 
-#ifdef CONFIG_BOARD_APOLLO
-	pwr->max_pwrlevel = 2;
+#ifdef CONFIG_BOARD_APOLLO || CONFIG_BOARD_LMI
+	pwr->max_pwrlevel = 3;
 #else
-	pwr->max_pwrlevel = 0;
+	pwr->max_pwrlevel = 1;
 #endif
 	pwr->min_pwrlevel = pwr->num_pwrlevels - 2;
 	pwr->thermal_pwrlevel = 0;
