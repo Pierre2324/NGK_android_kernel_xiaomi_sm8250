@@ -35,9 +35,7 @@ extern struct timerqueue_node *timerqueue_iterate_next(
 static inline
 struct timerqueue_node *timerqueue_getnext(struct timerqueue_head *head)
 {
-	struct rb_node *leftmost = rb_first_cached(&head->rb_root);
-
-	return rb_entry_safe(leftmost, struct timerqueue_node, node);
+	return head->next;
 }
 
 static inline void timerqueue_init(struct timerqueue_node *node)
