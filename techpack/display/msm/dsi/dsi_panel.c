@@ -20,6 +20,7 @@
 #include "xiaomi_frame_stat.h"
 #include "sde_dbg.h"
 #include "dsi_mi_feature.h"
+#include "exposure_adjustment.h"
 
 /**
  * topology is currently defined by a set of following 3 values:
