@@ -53,9 +53,7 @@ static const struct of_device_id dsi_display_dt_match[] = {
 	{}
 };
 
-#ifdef CONFIG_OSSFOD
 struct dsi_display *primary_display;
-#endif
 
 static void dsi_display_mask_ctrl_error_interrupts(struct dsi_display *display,
 			u32 mask, bool enable)
@@ -5378,6 +5376,18 @@ static struct attribute_group display_fs_attrs_group = {
 	.attrs = display_fs_attrs,
 };
 #endif
+#else
+
+static struct attribute *display_fs_attrs[] = {
+        &dev_attr_hbm.attr,
+        NULL,
+};
+
+static struct attribute_group display_fs_attrs_group = {
+        .attrs = display_fs_attrs,
+};
+
+#endif
 
 static int dsi_display_sysfs_init(struct dsi_display *display)
 {
@@ -5388,11 +5398,9 @@ static int dsi_display_sysfs_init(struct dsi_display *display)
 		rc = sysfs_create_group(&dev->kobj,
 			&dynamic_dsi_clock_fs_attrs_group);
 
-#ifdef CONFIG_OSSFOD
 	rc = sysfs_create_group(&dev->kobj, &display_fs_attrs_group);
 	if (rc)
 		pr_err("failed to create display device attributes");
-#endif
 
 	return rc;
 
@@ -5406,10 +5414,8 @@ static int dsi_display_sysfs_deinit(struct dsi_display *display)
 		sysfs_remove_group(&dev->kobj,
 			&dynamic_dsi_clock_fs_attrs_group);
 
-#ifdef CONFIG_OSSFOD
 	sysfs_remove_group(&dev->kobj,
 		&display_fs_attrs_group);
-#endif
 
 	return 0;
 
@@ -6865,9 +6871,7 @@ int dsi_display_get_modes(struct dsi_display *display,
 exit:
 	*out_modes = display->modes;
 	rc = 0;
-#ifdef CONFIG_OSSFOD
 	primary_display = display;
-#endif
 
 error:
 	if (rc)
@@ -8450,12 +8454,10 @@ int dsi_display_unprepare(struct dsi_display *display)
 	return rc;
 }
 
-#ifdef CONFIG_OSSFOD
 struct dsi_display *get_main_display(void)
 {
 	return primary_display;
 }
-#endif
 
 static int __init dsi_display_register(void)
 {

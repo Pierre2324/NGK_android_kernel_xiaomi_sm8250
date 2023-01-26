@@ -647,7 +647,7 @@ CONFIG_CRYPTO_POLY1305_NEON=y
 #
 CONFIG_RMNET_PERF=y
 CONFIG_RMNET_SHS=y
-CONFIG_OSSFOD=y
+# CONFIG_OSSFOD is not set
 
 #
 # General architecture-dependent options
