@@ -5375,9 +5375,7 @@ static struct attribute *display_fs_attrs[] = {
 static struct attribute_group display_fs_attrs_group = {
 	.attrs = display_fs_attrs,
 };
-#endif
 #else
-
 static struct attribute *display_fs_attrs[] = {
         &dev_attr_hbm.attr,
         NULL,
