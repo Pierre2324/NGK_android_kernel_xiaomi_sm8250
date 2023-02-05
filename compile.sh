@@ -11,6 +11,8 @@ nocol='\033[0m'
 # Cleanup
 rm -rf out/outputs/*
 
+curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+
 ./compile-alioth.sh
 ./compile-apollo.sh
 ./compile-lmi.sh

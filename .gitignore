@@ -155,3 +155,6 @@ drivers/input/touchscreen/focaltech_3658u/include/firmware
 drivers/input/touchscreen/focaltech_spi/include/firmware
 drivers/input/touchscreen/focaltech_touch/include/firmware
 drivers/input/touchscreen/focaltech_touch/include/pramboot
+
+# Kernel SU
+KernelSU
