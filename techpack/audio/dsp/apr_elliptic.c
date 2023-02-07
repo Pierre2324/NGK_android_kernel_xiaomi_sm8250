@@ -21,6 +21,10 @@
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 #endif
 
+
+static bool proximity_blocking_enabled = true;
+module_param(proximity_blocking_enabled, bool, 0644);
+
 enum {
 	HALL_SLIDER_UP = 4,
 	HALL_SLIDER_DOWN = 5,
@@ -387,8 +391,11 @@ int32_t elliptic_process_apr_payload(uint32_t *payload)
 	uint32_t payload_size = 0;
 	int32_t  ret = -1;
 
-	if (block_proximity("egram.messenger") ||
-	    block_proximity("onlab.messenger"))
+	if (proximity_blocking_enabled && (
+			block_proximity("egram.messenger") ||
+	    	block_proximity("onlab.messenger")
+	    	)
+	    )
 		return ret;
 
 	if (payload[0] == ELLIPTIC_ULTRASOUND_MODULE_TX) {
