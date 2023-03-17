@@ -775,6 +775,17 @@ static struct uclamp_se uclamp_default[UCLAMP_CNT];
 #define for_each_clamp_id(clamp_id) \
 	for ((clamp_id) = 0; (clamp_id) < UCLAMP_CNT; (clamp_id)++)
 
+void activate_task(struct rq *rq, struct task_struct *p, int flags)
+{
+	if (task_on_rq_migrating(p))
+		flags |= ENQUEUE_MIGRATED;
+
+	if (task_contributes_to_load(p))
+		rq->nr_uninterruptible--;
+
+	enqueue_task(rq, p, flags);
+}
+
 static inline unsigned int uclamp_bucket_id(unsigned int clamp_value)
 {
 	return min_t(unsigned int, clamp_value / UCLAMP_BUCKET_DELTA, UCLAMP_BUCKETS - 1);
