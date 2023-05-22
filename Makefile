@@ -543,12 +543,25 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
 export RETPOLINE_CFLAGS
 export RETPOLINE_VDSO_CFLAGS
 
-KBUILD_CFLAGS += -mllvm -polly \
-				-mllvm -polly-run-inliner \
-				-mllvm -polly-run-dce \
-				-mllvm -polly-opt-fusion=max \
-				-mllvm -polly-vectorizer=stripmine
+ifdef CONFIG_LLVM_POLLY
 
+KBUILD_CFLAGS	+= -mllvm -polly \
+
+		   -mllvm -polly-run-inliner \
+
+		   -mllvm -polly-ast-use-context \
+
+		   -mllvm -polly-detect-keep-going \
+
+           -mllvm -polly-position=before-vectorizer \
+
+		   -mllvm -polly-vectorizer=stripmine \
+
+           -mllvm -polly-detect-profitability-min-per-loop-insts=40 \
+
+		   -mllvm -polly-invariant-load-hoisting
+
+endif
 KBUILD_CFLAGS	+= $(call cc-option,-fno-PIE)
 KBUILD_AFLAGS	+= $(call cc-option,-fno-PIE)
 
